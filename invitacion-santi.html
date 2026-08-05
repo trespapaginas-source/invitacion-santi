@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Invitación de Santi — ¡Cumple 1 año!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --sage-deep:#5f6f52;
+    --sage:#8a9a7b;
+    --sage-light:#c9d3ba;
+    --ivory:#faf6ee;
+    --white:#fffdf8;
+    --gold:#d9a54b;
+    --gold-light:#e6d3a8;
+    --ink:#4a4438;
+    --radius:22px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    font-family:'Quicksand',sans-serif;
+    background:var(--ivory);
+    color:var(--ink);
+    line-height:1.5;
+    -webkit-font-smoothing:antialiased;
+  }
+  h2{font-family:'Baloo 2',sans-serif;font-weight:700;}
+  .signature{font-family:'Caveat',cursive;}
+  a{color:inherit;}
+
+  .bg-pattern{
+    position:fixed;inset:0;z-index:-1;opacity:.35;
+    background-image:
+      radial-gradient(circle at 10% 15%, var(--sage-light) 0, transparent 2px),
+      radial-gradient(circle at 80% 10%, var(--sage-light) 0, transparent 2px),
+      radial-gradient(circle at 40% 60%, var(--sage-light) 0, transparent 2px),
+      radial-gradient(circle at 90% 70%, var(--sage-light) 0, transparent 2px),
+      radial-gradient(circle at 25% 85%, var(--sage-light) 0, transparent 2px),
+      radial-gradient(circle at 65% 40%, var(--sage-light) 0, transparent 2px);
+    background-size:220px 220px;
+  }
+
+  main{max-width:640px;margin:0 auto;padding:48px 20px 80px;}
+
+  .hero{text-align:center;}
+
+  .arch-card{
+    background:var(--white);
+    border:1px solid var(--sage-light);
+    border-radius:200px 200px var(--radius) var(--radius);
+    box-shadow:0 18px 40px -20px rgba(95,111,82,.35);
+    overflow:hidden;
+    animation:riseIn .7s ease both;
+  }
+  @keyframes riseIn{
+    from{opacity:0;transform:translateY(14px);}
+    to{opacity:1;transform:translateY(0);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .arch-card{animation:none;}
+  }
+
+  .hero-video-wrap{
+    width:100%;
+    aspect-ratio:16/9;
+    overflow:hidden;
+    background:var(--sage-light);
+  }
+  .hero-video-wrap video{
+    width:100%;height:100%;
+    object-fit:cover;
+    display:block;
+  }
+
+  .arch-card-body{padding:26px 28px 34px;}
+
+  .divider{
+    width:60px;height:3px;background:var(--gold-light);
+    margin:0 auto 24px;border-radius:2px;
+  }
+
+  .event-info{
+    display:grid;
+    gap:10px;
+    font-size:16px;
+    font-weight:500;
+  }
+  .info-row{display:flex;justify-content:center;gap:8px;flex-wrap:wrap;}
+  .info-row .label{
+    font-family:'Baloo 2',sans-serif;
+    text-transform:uppercase;
+    font-size:12px;
+    letter-spacing:.06em;
+    color:var(--sage-deep);
+    font-weight:700;
+    align-self:center;
+  }
+  .map-link{
+    display:inline-block;margin-top:10px;
+    font-size:14px;color:var(--sage-deep);font-weight:600;
+    text-decoration:underline;text-underline-offset:3px;
+  }
+
+  .cta-button{
+    display:inline-block;
+    margin-top:26px;
+    background:var(--sage-deep);
+    color:var(--white);
+    text-decoration:none;
+    padding:15px 40px;
+    border-radius:40px;
+    font-family:'Baloo 2',sans-serif;
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:.02em;
+    transition:background .2s ease, transform .2s ease;
+  }
+  .cta-button:hover{background:var(--gold);transform:translateY(-2px) rotate(-1deg);}
+
+  .rsvp-section{
+    margin-top:56px;
+    background:var(--white);
+    border:1px solid var(--sage-light);
+    border-radius:var(--radius);
+    padding:40px 28px;
+    text-align:center;
+  }
+  .rsvp-section h2{font-size:32px;color:var(--ink);}
+  .rsvp-sub{color:var(--sage-deep);font-size:15px;font-weight:600;margin-top:6px;margin-bottom:30px;}
+
+  form{text-align:left;display:grid;gap:22px;}
+
+  .hp-field{
+    position:absolute;left:-9999px;top:-9999px;
+    opacity:0;height:0;width:0;
+  }
+
+  label.text-label{display:grid;gap:6px;font-size:14px;color:var(--sage-deep);font-weight:700;}
+  input[type="text"]{
+    font-family:'Quicksand',sans-serif;
+    font-size:16px;font-weight:500;
+    padding:12px 14px;
+    border:1px solid var(--sage-light);
+    border-radius:12px;
+    background:var(--ivory);
+    color:var(--ink);
+  }
+  input[type="text"]:focus{outline:2px solid var(--gold);outline-offset:1px;}
+
+  fieldset{border:none;padding:0;display:grid;gap:10px;}
+  legend{
+    font-size:14px;color:var(--sage-deep);font-weight:700;
+    padding:0 0 8px;
+  }
+  .radio-option{
+    display:flex;align-items:center;gap:10px;
+    font-size:15px;font-weight:500;
+    background:var(--ivory);
+    border:1px solid var(--sage-light);
+    border-radius:12px;
+    padding:12px 14px;
+    cursor:pointer;
+  }
+  .radio-option input{accent-color:var(--sage-deep);width:17px;height:17px;}
+
+  .note{font-size:13px;color:var(--sage-deep);font-weight:600;}
+
+  button[type="submit"]{
+    font-family:'Baloo 2',sans-serif;
+    font-size:16px;font-weight:700;
+    background:var(--gold);
+    color:var(--white);
+    border:none;
+    padding:15px 20px;
+    border-radius:40px;
+    cursor:pointer;
+    transition:background .2s ease, transform .2s ease;
+  }
+  button[type="submit"]:hover{background:var(--sage-deep);transform:translateY(-2px);}
+  button[type="submit"]:focus-visible{outline:2px solid var(--ink);outline-offset:2px;}
+
+  #thanks-message{
+    font-size:18px;font-weight:600;color:var(--sage-deep);padding:20px 0;
+  }
+
+  footer{
+    text-align:center;
+    margin-top:44px;
+  }
+  footer p{
+    font-family:'Caveat',cursive;
+    font-size:26px;
+    font-weight:600;
+    color:var(--sage-deep);
+  }
+
+  @media (max-width:480px){
+    .arch-card-body{padding:22px 18px 28px;}
+  }
+</style>
+</head>
+<body>
+<div class="bg-pattern" aria-hidden="true"></div>
+<main>
+
+  <section class="hero">
+    <div class="arch-card">
+      <div class="hero-video-wrap">
+        <video autoplay muted loop playsinline preload="auto">
+          <source src="animacion-santi.webm" type="video/webm">
+          <source src="animacion-santi.mp4" type="video/mp4">
+        </video>
+      </div>
+
+      <div class="arch-card-body">
+        <div class="divider"></div>
+
+        <div class="event-info">
+          <div class="info-row"><span class="label">Fecha</span><span>Sábado 16 de agosto</span></div>
+          <div class="info-row"><span class="label">Hora</span><span>4:00 p.m.</span></div>
+          <div class="info-row"><span class="label">Lugar</span><span>Salón Social, Edificio Brisas del Parque · Carrera 78 #78-78</span></div>
+        </div>
+        <a class="map-link" href="https://maps.google.com/?q=Carrera+78+%2378-78,+Barranquilla" target="_blank" rel="noopener">Ver mapa →</a>
+        <br>
+        <a href="#rsvp" class="cta-button">Confirmar asistencia</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="rsvp" class="rsvp-section">
+    <h2>Confirmar asistencia</h2>
+    <p class="rsvp-sub">Confirma tu asistencia cuando puedas</p>
+
+    <form id="rsvp-form">
+      <input class="hp-field" type="text" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
+
+      <label class="text-label">
+        Nombre
+        <input type="text" name="nombre" required>
+      </label>
+
+      <fieldset>
+        <legend>¿El peque puede comer dulces?</legend>
+        <label class="radio-option"><input type="radio" name="dulces" value="si" required> Sí, puede comer dulces</label>
+        <label class="radio-option"><input type="radio" name="dulces" value="no"> No, mejor sin dulces</label>
+      </fieldset>
+
+      <fieldset>
+        <legend>¿Nos acompañas?</legend>
+        <label class="radio-option"><input type="radio" name="asistencia" value="si" required> Sí, ahí estaré</label>
+        <label class="radio-option"><input type="radio" name="asistencia" value="no"> No podré ir</label>
+      </fieldset>
+
+      <p class="note">Cada niño puede asistir acompañado por dos adultos.</p>
+
+      <button type="submit">Enviar confirmación</button>
+    </form>
+
+    <p id="thanks-message" hidden>¡Gracias por confirmar! Te esperamos para celebrar a Santi. 🎉</p>
+  </section>
+
+  <footer>
+    <p class="signature">Con cariño, la familia de Santi</p>
+  </footer>
+
+</main>
+
+<script>
+  // Pega aquí la URL de tu Google Apps Script Web App (ver instrucciones adjuntas)
+  const GAS_URL = "PEGA_AQUI_TU_URL_DE_GOOGLE_APPS_SCRIPT";
+
+  const form = document.getElementById('rsvp-form');
+  const thanks = document.getElementById('thanks-message');
+
+  form.addEventListener('submit', async function(e){
+    e.preventDefault();
+
+    if (form.empresa.value) return;
+
+    const payload = {
+      nombre: form.nombre.value,
+      dulces: form.dulces.value,
+      asistencia: form.asistencia.value,
+      fecha_envio: new Date().toISOString()
+    };
+
+    try{
+      await fetch(GAS_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {'Content-Type': 'text/plain'},
+        body: JSON.stringify(payload)
+      });
+    }catch(err){
+      console.error('Error al enviar:', err);
+    }
+
+    form.hidden = true;
+    thanks.hidden = false;
+  });
+</script>
+</body>
+</html>
