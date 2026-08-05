@@ -6,7 +6,7 @@
 <title>Invitación de Santi — ¡Cumple 1 año!</title>
 
 <meta property="og:title" content="Invitación de Santi — ¡Cumple 1 año!">
-<meta property="og:description" content="Acompáñanos a celebrar el primer año de Santi. Domingo 16 de agosto, 4:00 p.m.">
+<meta property="og:description" content="Acompáñanos a celebrar el primer año de Santi. Sábado 16 de agosto, 4:00 p.m.">
 <meta property="og:image" content="https://invitacion-santi.pages.dev/santi-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="959">
@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://invitacion-santi.pages.dev/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Invitación de Santi — ¡Cumple 1 año!">
-<meta name="twitter:description" content="Acompáñanos a celebrar el primer año de Santi. Domingo 16 de agosto, 4:00 p.m.">
+<meta name="twitter:description" content="Acompáñanos a celebrar el primer año de Santi. Sábado 16 de agosto, 4:00 p.m.">
 <meta name="twitter:image" content="https://invitacion-santi.pages.dev/santi-preview.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -259,6 +259,30 @@
   }
   .radio-option input{accent-color:var(--sage-deep);width:17px;height:17px;}
 
+  .optional-tag{
+    font-weight:500;
+    text-transform:none;
+    letter-spacing:0;
+    color:var(--sage);
+    font-size:12px;
+  }
+
+  .add-child-btn{
+    justify-self:start;
+    margin-top:-8px;
+    background:transparent;
+    border:1.5px dashed var(--sage-light);
+    color:var(--sage-deep);
+    font-family:'Quicksand',sans-serif;
+    font-weight:600;
+    font-size:14px;
+    padding:9px 16px;
+    border-radius:30px;
+    cursor:pointer;
+    transition:background .2s ease, border-color .2s ease;
+  }
+  .add-child-btn:hover{background:var(--ivory);border-color:var(--sage);}
+
   .note{font-size:13px;color:var(--sage-deep);font-weight:600;}
 
   button[type="submit"]{
@@ -314,7 +338,7 @@
           <div class="divider"></div>
 
           <div class="event-info">
-            <div class="info-row"><span class="label">Fecha</span><span>Domingo 16 de agosto</span></div>
+            <div class="info-row"><span class="label">Fecha</span><span>Sábado 16 de agosto</span></div>
             <div class="info-row"><span class="label">Hora</span><span>4:00 p.m.</span></div>
             <div class="info-row"><span class="label">Lugar</span><span>Salón Social, Edificio Brisas del Parque · Carrera 78 #78-78</span></div>
           </div>
@@ -343,9 +367,28 @@
         <input class="hp-field" type="text" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <label class="text-label">
-          Nombre
-          <input type="text" name="nombre" required>
+          Acompañante 1
+          <input type="text" name="acompanante1" placeholder="Nombre y apellido" required>
         </label>
+
+        <label class="text-label">
+          Acompañante 2 <span class="optional-tag">(opcional)</span>
+          <input type="text" name="acompanante2" placeholder="Nombre y apellido">
+        </label>
+
+        <label class="text-label">
+          Niño(a) 1
+          <input type="text" name="nino1" placeholder="Nombre y apellido" required>
+        </label>
+
+        <div id="nino2-wrap" hidden>
+          <label class="text-label">
+            Niño(a) 2
+            <input type="text" name="nino2" placeholder="Nombre y apellido">
+          </label>
+        </div>
+
+        <button type="button" id="add-nino-btn" class="add-child-btn">+ Agregar otro niño</button>
 
         <fieldset>
           <legend>¿El peque puede comer dulces?</legend>
@@ -384,7 +427,7 @@
 <script>
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzTIUxie4PpbbqIyx2acOiLNKqH0_a4KQglGMDj3rsimnrS_5wWSXHd3SXWTc1RMU6T/exec";
 
-  // El evento es el Domingo 16 de agosto de 2026. A partir del día
+  // El evento es el sábado 16 de agosto de 2026. A partir del día
   // siguiente (17 de agosto, hora de Colombia) el formulario se cierra.
   const EVENT_CLOSE_DATE = new Date('2026-08-17T00:00:00-05:00');
   function isEventClosed(){
@@ -404,6 +447,13 @@
   const btnText = submitBtn.querySelector('.btn-text');
   const heroDefault = document.getElementById('hero-default');
   const heroThanks = document.getElementById('hero-thanks');
+
+  const addNinoBtn = document.getElementById('add-nino-btn');
+  const nino2Wrap = document.getElementById('nino2-wrap');
+  addNinoBtn.addEventListener('click', function(){
+    nino2Wrap.hidden = false;
+    addNinoBtn.hidden = true;
+  });
 
   function launchConfetti(){
     const canvas = document.getElementById('confetti-canvas');
@@ -491,7 +541,10 @@
     btnText.textContent = 'Enviando…';
 
     const payload = {
-      nombre: form.nombre.value,
+      acompanante1: form.acompanante1.value,
+      acompanante2: form.acompanante2.value,
+      nino1: form.nino1.value,
+      nino2: form.nino2.value,
       dulces: form.dulces.value,
       asistencia: form.asistencia.value,
       fecha_envio: new Date().toISOString()
