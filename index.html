@@ -4,6 +4,19 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Invitación de Santi — ¡Cumple 1 año!</title>
+
+<meta property="og:title" content="Invitación de Santi — ¡Cumple 1 año!">
+<meta property="og:description" content="Acompáñanos a celebrar el primer año de Santi. Sábado 16 de agosto, 4:00 p.m.">
+<meta property="og:image" content="https://invitacion-santi.pages.dev/santi-preview.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="959">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://invitacion-santi.pages.dev/">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Invitación de Santi — ¡Cumple 1 año!">
+<meta name="twitter:description" content="Acompáñanos a celebrar el primer año de Santi. Sábado 16 de agosto, 4:00 p.m.">
+<meta name="twitter:image" content="https://invitacion-santi.pages.dev/santi-preview.png">
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Caveat:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -120,6 +133,65 @@
   }
   .cta-button:hover{background:var(--gold);transform:translateY(-2px) rotate(-1deg);}
 
+  #confetti-canvas{
+    position:fixed;inset:0;
+    width:100%;height:100%;
+    pointer-events:none;
+    z-index:999;
+    display:none;
+  }
+
+  .hero-thanks{
+    animation:riseIn .5s ease both;
+  }
+  .hero-thanks .thanks-emoji{
+    font-size:46px;
+    margin-bottom:8px;
+    display:inline-block;
+    animation:popIn .6s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .hero-thanks .thanks-title{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:32px;
+    line-height:1.2;
+    letter-spacing:.01em;
+    margin-bottom:10px;
+    animation:popIn .6s .1s cubic-bezier(.34,1.56,.64,1) both;
+  }
+  .hero-thanks .thanks-title .accent{color:var(--gold);}
+  .hero-thanks .thanks-text{
+    font-size:17px;
+    font-weight:500;
+    color:var(--sage-deep);
+  }
+  @keyframes popIn{
+    from{opacity:0;transform:scale(.7);}
+    to{opacity:1;transform:scale(1);}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .hero-thanks, .hero-thanks .thanks-emoji, .hero-thanks .thanks-title{animation:none;}
+  }
+
+  .btn-spinner{
+    display:inline-block;
+    width:16px;height:16px;
+    border:2.5px solid rgba(255,255,255,.5);
+    border-top-color:var(--white);
+    border-radius:50%;
+    animation:spin .7s linear infinite;
+    vertical-align:middle;
+    margin-right:8px;
+  }
+  @keyframes spin{to{transform:rotate(360deg);}}
+  @media (prefers-reduced-motion: reduce){
+    .btn-spinner{animation-duration:1.4s;}
+  }
+  button[type="submit"]:disabled{
+    opacity:.85;
+    cursor:not-allowed;
+  }
+
   .rsvp-section{
     margin-top:56px;
     background:var(--white);
@@ -203,6 +275,7 @@
 </style>
 </head>
 <body>
+<canvas id="confetti-canvas" aria-hidden="true"></canvas>
 <div class="bg-pattern" aria-hidden="true"></div>
 <main>
 
@@ -216,16 +289,25 @@
       </div>
 
       <div class="arch-card-body">
-        <div class="divider"></div>
+        <div id="hero-default">
+          <div class="divider"></div>
 
-        <div class="event-info">
-          <div class="info-row"><span class="label">Fecha</span><span>Sábado 16 de agosto</span></div>
-          <div class="info-row"><span class="label">Hora</span><span>4:00 p.m.</span></div>
-          <div class="info-row"><span class="label">Lugar</span><span>Salón Social, Edificio Brisas del Parque · Carrera 78 #78-78</span></div>
+          <div class="event-info">
+            <div class="info-row"><span class="label">Fecha</span><span>Sábado 16 de agosto</span></div>
+            <div class="info-row"><span class="label">Hora</span><span>4:00 p.m.</span></div>
+            <div class="info-row"><span class="label">Lugar</span><span>Salón Social, Edificio Brisas del Parque · Carrera 78 #78-78</span></div>
+          </div>
+          <a class="map-link" href="https://maps.google.com/?q=Carrera+78+%2378-78,+Barranquilla" target="_blank" rel="noopener">Ver mapa →</a>
+          <br>
+          <a href="#rsvp" class="cta-button">Confirmar asistencia</a>
         </div>
-        <a class="map-link" href="https://maps.google.com/?q=Carrera+78+%2378-78,+Barranquilla" target="_blank" rel="noopener">Ver mapa →</a>
-        <br>
-        <a href="#rsvp" class="cta-button">Confirmar asistencia</a>
+
+        <div id="hero-thanks" class="hero-thanks" hidden>
+          <div class="divider"></div>
+          <p class="thanks-emoji">🎉</p>
+          <h2 class="thanks-title"><span class="accent">¡Gracias</span> por confirmar!</h2>
+          <p class="thanks-text">Te esperamos para celebrar a Santi.</p>
+        </div>
       </div>
     </div>
   </section>
@@ -256,10 +338,11 @@
 
       <p class="note">Cada niño puede asistir acompañado por dos adultos.</p>
 
-      <button type="submit">Enviar confirmación</button>
+      <button type="submit" id="submit-btn">
+        <span class="btn-spinner" hidden></span>
+        <span class="btn-text">Enviar confirmación</span>
+      </button>
     </form>
-
-    <p id="thanks-message" hidden>¡Gracias por confirmar! Te esperamos para celebrar a Santi. 🎉</p>
   </section>
 
   <footer>
@@ -269,16 +352,95 @@
 </main>
 
 <script>
-  // Pega aquí la URL de tu Google Apps Script Web App (ver instrucciones adjuntas)
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzTIUxie4PpbbqIyx2acOiLNKqH0_a4KQglGMDj3rsimnrS_5wWSXHd3SXWTc1RMU6T/exec";
 
   const form = document.getElementById('rsvp-form');
-  const thanks = document.getElementById('thanks-message');
+  const submitBtn = document.getElementById('submit-btn');
+  const btnSpinner = submitBtn.querySelector('.btn-spinner');
+  const btnText = submitBtn.querySelector('.btn-text');
+  const heroDefault = document.getElementById('hero-default');
+  const heroThanks = document.getElementById('hero-thanks');
+
+  function launchConfetti(){
+    const canvas = document.getElementById('confetti-canvas');
+    const ctx = canvas.getContext('2d');
+
+    function resize(){
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    resize();
+    window.addEventListener('resize', resize);
+
+    const originX = canvas.width / 2;
+    const originY = canvas.height * 0.35;
+    const gravity = 0.22;
+    const drag = 0.985;
+
+    const colors = ['#5f6f52', '#8a9a7b', '#d9a54b', '#e6d3a8', '#fffdf8'];
+    const particles = Array.from({length: 220}, function(){
+      const angle = Math.random() * Math.PI * 2;
+      const speed = 5 + Math.random() * 10;
+      return {
+        x: originX,
+        y: originY,
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed,
+        shape: Math.random() < 0.35 ? 'circle' : 'rect',
+        w: 6 + Math.random() * 7,
+        h: 9 + Math.random() * 8,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rot: Math.random() * Math.PI * 2,
+        rotSpeed: (Math.random() - 0.5) * 0.3
+      };
+    });
+
+    let frame = 0;
+    const totalFrames = 260;
+    canvas.style.display = 'block';
+
+    function tick(){
+      frame++;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(function(p){
+        p.vx *= drag;
+        p.vy += gravity;
+        p.x += p.vx;
+        p.y += p.vy;
+        p.rot += p.rotSpeed;
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
+        ctx.fillStyle = p.color;
+        if (p.shape === 'circle'){
+          ctx.beginPath();
+          ctx.arc(0, 0, p.w / 2, 0, Math.PI * 2);
+          ctx.fill();
+        } else {
+          ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+        }
+        ctx.restore();
+      });
+
+      if (frame < totalFrames){
+        requestAnimationFrame(tick);
+      } else {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        canvas.style.display = 'none';
+        window.removeEventListener('resize', resize);
+      }
+    }
+    requestAnimationFrame(tick);
+  }
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
 
     if (form.empresa.value) return;
+
+    submitBtn.disabled = true;
+    btnSpinner.hidden = false;
+    btnText.textContent = 'Enviando…';
 
     const payload = {
       nombre: form.nombre.value,
@@ -298,9 +460,17 @@
       console.error('Error al enviar:', err);
     }
 
-    form.hidden = true;
-    thanks.hidden = false;
+    heroDefault.hidden = true;
+    heroThanks.hidden = false;
+
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!reduceMotion){
+      launchConfetti();
+    }
   });
+
 </script>
 </body>
 </html>
