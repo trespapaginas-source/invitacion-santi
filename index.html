@@ -6,7 +6,7 @@
 <title>Invitación de Santi — ¡Cumple 1 año!</title>
 
 <meta property="og:title" content="Invitación de Santi — ¡Cumple 1 año!">
-<meta property="og:description" content="Acompáñanos a celebrar el primer año de Santi. Sábado 16 de agosto, 4:00 p.m.">
+<meta property="og:description" content="Acompáñanos a celebrar el primer año de Santi. Domingo 16 de agosto, 4:00 p.m.">
 <meta property="og:image" content="https://invitacion-santi.pages.dev/santi-preview.png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="959">
@@ -14,7 +14,7 @@
 <meta property="og:url" content="https://invitacion-santi.pages.dev/">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Invitación de Santi — ¡Cumple 1 año!">
-<meta name="twitter:description" content="Acompáñanos a celebrar el primer año de Santi. Sábado 16 de agosto, 4:00 p.m.">
+<meta name="twitter:description" content="Acompáñanos a celebrar el primer año de Santi. Domingo 16 de agosto, 4:00 p.m.">
 <meta name="twitter:image" content="https://invitacion-santi.pages.dev/santi-preview.png">
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -203,6 +203,27 @@
   .rsvp-section h2{font-size:32px;color:var(--ink);}
   .rsvp-sub{color:var(--sage-deep);font-size:15px;font-weight:600;margin-top:6px;margin-bottom:30px;}
 
+  .rsvp-closed{
+    padding:10px 0 4px;
+  }
+  .rsvp-closed .closed-emoji{
+    font-size:38px;
+    margin-bottom:10px;
+    display:inline-block;
+  }
+  .rsvp-closed .closed-title{
+    font-family:'Baloo 2',sans-serif;
+    font-weight:800;
+    font-size:24px;
+    color:var(--ink);
+    margin-bottom:8px;
+  }
+  .rsvp-closed .closed-text{
+    font-size:15px;
+    font-weight:500;
+    color:var(--sage-deep);
+  }
+
   form{text-align:left;display:grid;gap:22px;}
 
   .hp-field{
@@ -293,7 +314,7 @@
           <div class="divider"></div>
 
           <div class="event-info">
-            <div class="info-row"><span class="label">Fecha</span><span>Sábado 16 de agosto</span></div>
+            <div class="info-row"><span class="label">Fecha</span><span>Domingo 16 de agosto</span></div>
             <div class="info-row"><span class="label">Hora</span><span>4:00 p.m.</span></div>
             <div class="info-row"><span class="label">Lugar</span><span>Salón Social, Edificio Brisas del Parque · Carrera 78 #78-78</span></div>
           </div>
@@ -314,35 +335,44 @@
 
   <section id="rsvp" class="rsvp-section">
     <h2>Confirmar asistencia</h2>
-    <p class="rsvp-sub">Confirma tu asistencia cuando puedas</p>
 
-    <form id="rsvp-form">
-      <input class="hp-field" type="text" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <div id="rsvp-open">
+      <p class="rsvp-sub">Confirma tu asistencia cuando puedas</p>
 
-      <label class="text-label">
-        Nombre
-        <input type="text" name="nombre" required>
-      </label>
+      <form id="rsvp-form">
+        <input class="hp-field" type="text" name="empresa" tabindex="-1" autocomplete="off" aria-hidden="true">
 
-      <fieldset>
-        <legend>¿El peque puede comer dulces?</legend>
-        <label class="radio-option"><input type="radio" name="dulces" value="si" required> Sí, puede comer dulces</label>
-        <label class="radio-option"><input type="radio" name="dulces" value="no"> No, mejor sin dulces</label>
-      </fieldset>
+        <label class="text-label">
+          Nombre
+          <input type="text" name="nombre" required>
+        </label>
 
-      <fieldset>
-        <legend>¿Nos acompañas?</legend>
-        <label class="radio-option"><input type="radio" name="asistencia" value="si" required> Sí, ahí estaré</label>
-        <label class="radio-option"><input type="radio" name="asistencia" value="no"> No podré ir</label>
-      </fieldset>
+        <fieldset>
+          <legend>¿El peque puede comer dulces?</legend>
+          <label class="radio-option"><input type="radio" name="dulces" value="si" required> Sí, puede comer dulces</label>
+          <label class="radio-option"><input type="radio" name="dulces" value="no"> No, mejor sin dulces</label>
+        </fieldset>
 
-      <p class="note">Cada niño puede asistir acompañado por dos adultos.</p>
+        <fieldset>
+          <legend>¿Nos acompañas?</legend>
+          <label class="radio-option"><input type="radio" name="asistencia" value="si" required> Sí, ahí estaré</label>
+          <label class="radio-option"><input type="radio" name="asistencia" value="no"> No podré ir</label>
+        </fieldset>
 
-      <button type="submit" id="submit-btn">
-        <span class="btn-spinner" hidden></span>
-        <span class="btn-text">Enviar confirmación</span>
-      </button>
-    </form>
+        <p class="note">Cada niño puede asistir acompañado por dos adultos.</p>
+
+        <button type="submit" id="submit-btn">
+          <span class="btn-spinner" hidden></span>
+          <span class="btn-text">Enviar confirmación</span>
+        </button>
+      </form>
+    </div>
+
+    <div id="rsvp-closed" class="rsvp-closed" hidden>
+      <p class="closed-emoji">🗓️</p>
+      <p class="closed-title">Este evento ya concluyó</p>
+      <p class="closed-text">Gracias por tu interés en acompañarnos a celebrar a Santi.</p>
+    </div>
   </section>
 
   <footer>
@@ -353,6 +383,20 @@
 
 <script>
   const GAS_URL = "https://script.google.com/macros/s/AKfycbzTIUxie4PpbbqIyx2acOiLNKqH0_a4KQglGMDj3rsimnrS_5wWSXHd3SXWTc1RMU6T/exec";
+
+  // El evento es el Domingo 16 de agosto de 2026. A partir del día
+  // siguiente (17 de agosto, hora de Colombia) el formulario se cierra.
+  const EVENT_CLOSE_DATE = new Date('2026-08-17T00:00:00-05:00');
+  function isEventClosed(){
+    return new Date() >= EVENT_CLOSE_DATE;
+  }
+
+  const rsvpOpen = document.getElementById('rsvp-open');
+  const rsvpClosed = document.getElementById('rsvp-closed');
+  if (isEventClosed()){
+    rsvpOpen.hidden = true;
+    rsvpClosed.hidden = false;
+  }
 
   const form = document.getElementById('rsvp-form');
   const submitBtn = document.getElementById('submit-btn');
@@ -435,6 +479,10 @@
 
   form.addEventListener('submit', async function(e){
     e.preventDefault();
+
+    // Seguridad extra: si por algún motivo el formulario sigue visible
+    // pero la fecha de cierre ya pasó, no se envía ni se guarda nada.
+    if (isEventClosed()) return;
 
     if (form.empresa.value) return;
 
